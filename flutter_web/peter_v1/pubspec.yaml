@@ -1,0 +1,30 @@
+name: peter_v1
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  web_socket_channel: ^2.4.5
+  flutter_cube: ^0.1.1
+  simple_3d_renderer: ^21.0.0
+  simple_3d: ^15.0.0
+  util_simple_3d: ^11.0.0
+  flutter_gl_web: ^0.0.5
+  flutter_gl: ^0.0.21
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+
+  assets:
+    -  assets/3d/DamagedHelmet.glb
