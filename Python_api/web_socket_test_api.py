@@ -7,27 +7,25 @@ app = FastAPI()
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()  # Aceptar la conexión
     print("Cliente conectado")
-    
-    # Enviar mensaje de confirmación al cliente inmediatamente
-    confirmation_message = {"status": "ok", "message": "CONFIRMATION"}
-    await websocket.send_text(json.dumps(confirmation_message))
-    print("Mensaje de confirmación enviado al cliente.")
+    estado = 0
 
     try:
         while True:
             # Recibir mensaje del cliente
             data = await websocket.receive_text()
             try:
-                message = json.loads(data)  # Decodificar mensaje JSON
-                print(f"Mensaje recibido: {message}")
-                
-                # Procesar y responder con JSON
-                response = {
-                    "status": "ok",
-                    "echo": message,
-                    "message": "Este es un mensaje de respuesta JSON desde el servidor."
-                }
-                await websocket.send_text(json.dumps(response))  # Enviar respuesta en formato JSON
+                message_json = json.loads(data)  # Decodificar mensaje JSON
+                if estado == 0:
+                    if "device" in message_json:
+                        message = message_json["device"]
+
+                        if message == "ESP32":                                   
+                         estado =1
+
+
+                elif estado==1:
+                    print("conexion establecida con esp32")
+
             except json.JSONDecodeError:
                 print("Mensaje recibido no es un JSON válido.")
                 error_response = {"error": "El mensaje no es un JSON válido."}
